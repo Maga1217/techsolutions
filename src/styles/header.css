@@ -2,26 +2,34 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 62px;
 
   padding: 16px 24px;
-  background-color: #1f2937;
-  color: white;
+  background: var(--panel-2);
+
+  position: sticky;
+  top: 0;
+
+  z-index: 500;
 }
 
-.header__left h1 {
-  font-size: 20px;
+.header .title {
+  font-weight: 600;
   margin: 0;
+  color: var(--text-white);
 }
 
-.header__right button {
+.header .button {
   padding: 8px 12px;
   border: none;
-  background-color: #3b82f6;
-  color: white;
-  border-radius: 6px;
+  border-radius: var(--radius);
+
+  background: var(--primary);
+  color: var(--text-white);
+
   cursor: pointer;
 }
 
-.header__right button:hover {
-  background-color: #2563eb;
+.header .button:hover {
+  background: var(--primary-hover);
 }

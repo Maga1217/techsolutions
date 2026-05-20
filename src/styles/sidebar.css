@@ -1,0 +1,39 @@
+.sidebar {
+  width: 220px;
+  height: 100vh;
+
+  background: var(--panel);
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .title {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: var(--text-white);
+}
+
+.sidebar .nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar .nav ul {
+  list-style: none;
+  padding-left: 15px;
+}
+
+.sidebar .nav-item {
+  padding: 10px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: var(--text-white);
+  font-size: 14px;
+}
+
+.sidebar .nav-item:hover {
+  background: var(--panel-2);
+}
