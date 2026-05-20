@@ -1,0 +1,42 @@
+.dashboard {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Header da dashboard */
+.dashboard h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+
+  color: var(--text-theme);
+  letter-spacing: 0.2px;
+}
+
+/* Grid de projetos */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* Estado vazio (caso não haja projetos no futuro) */
+.dashboard-empty {
+  padding: 40px;
+  text-align: center;
+
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+
+  color: var(--muted);
+  background: var(--panel);
+}
+
+/* pequenos upgrades visuais */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

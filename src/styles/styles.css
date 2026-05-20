@@ -3,6 +3,7 @@
 :root {
   --bg: #0f172a;
   --bg-white: #fff;
+  --bg-lightwhite: #e5e7eb;
   --panel: #111827;
   --panel-2: #1f2937;
 
@@ -12,6 +13,7 @@
   --text: #f9fafb;
   --text-white: #fff;
   --text-black: #000;
+  --text-theme: #f36f2e;
   --muted: #9ca3af;
 
   --border: #243042;
@@ -56,8 +58,6 @@ body {
   user-select: none;
 }
 
-/* ========== VARIANTS ========== */
-
 .primary {
   background: var(--primary);
   color: var(--text-white);
@@ -86,8 +86,6 @@ body {
 .ghost:hover {
   background: var(--panel-2);
 }
-
-/* ========== STATES ========== */
 
 .disabled {
   opacity: 0.5;
