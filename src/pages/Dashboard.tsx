@@ -1,5 +1,6 @@
 import React from "react";
 import ProjectCard from "../components/projects/ProjectCard";
+import ProjectForm from "../components/projects/ProjectForm";
 import "../styles/dashboard.css";
 
 const Dashboard: React.FC = () => {
@@ -28,6 +29,10 @@ const Dashboard: React.FC = () => {
     <div className="dashboard">
       <div className="dashboard-header">
         <h2>Dashboard</h2>
+      </div>
+
+      <div className="project-form-container">
+        <ProjectForm />
       </div>
 
       <div className="project-grid">
