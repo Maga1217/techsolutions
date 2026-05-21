@@ -1,4 +1,4 @@
-.project-form {
+.project-form-container .project-form {
   background: var(--bg-white);
   border: 1px solid var(--bg-lightwhite);
 
@@ -15,7 +15,7 @@
 }
 
 /* header */
-.project-form h2 {
+.project-form-container .project-form h2 {
   margin: 0;
 
   font-size: 20px;
@@ -25,14 +25,14 @@
 }
 
 /* grupo */
-.form-group {
+.project-form-container .form-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
 /* labels */
-.form-group label {
+.project-form-container .form-group label {
   font-size: 13px;
   font-weight: 600;
 
@@ -40,10 +40,8 @@
 }
 
 /* inputs */
-.form-group input,
-.form-group textarea {
-  width: 100%;
-
+.project-form-container .form-group input,
+.project-form-container .form-group textarea {
   padding: 12px 14px;
 
   border: 1px solid #d1d5db;
@@ -60,20 +58,20 @@
 }
 
 /* textarea */
-.form-group textarea {
+.project-form-container .form-group textarea {
   min-height: 120px;
   resize: vertical;
 }
 
 /* placeholder */
-.form-group input::placeholder,
-.form-group textarea::placeholder {
+.project-form-container .form-group input::placeholder,
+.project-form-container .form-group textarea::placeholder {
   color: #9ca3af;
 }
 
 /* focus */
-.form-group input:focus,
-.form-group textarea:focus {
+.project-form-container .form-group input:focus,
+.project-form-container .form-group textarea:focus {
   outline: none;
 
   border-color: var(--primary);
@@ -82,13 +80,13 @@
 }
 
 /* botão */
-.project-form button {
+.project-form-container .project-form button {
   align-self: flex-start;
 }
 
 /* responsivo */
 @media (max-width: 768px) {
-  .project-form {
+  .project-form-container .project-form {
     padding: 18px;
   }
 }

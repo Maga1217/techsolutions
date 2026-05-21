@@ -1,6 +1,7 @@
 import React from "react";
 import ProjectCard from "../components/projects/ProjectCard";
 import ProjectForm from "../components/projects/ProjectForm";
+import TaskList from "../components/tasks/TaskList";
 import "../styles/dashboard.css";
 
 const Dashboard: React.FC = () => {
@@ -45,6 +46,8 @@ const Dashboard: React.FC = () => {
           />
         ))}
       </div>
+
+      <TaskList />
     </div>
   );
 };
