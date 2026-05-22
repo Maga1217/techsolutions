@@ -2,29 +2,11 @@ import React from "react";
 import ProjectCard from "../components/projects/ProjectCard";
 import ProjectForm from "../components/projects/ProjectForm";
 import TaskList from "../components/tasks/TaskList";
+import {useProjects} from "../context/ProjectContext";
 import "../styles/dashboard.css";
 
 const Dashboard: React.FC = () => {
-  const projects = [
-    {
-      id: 1,
-      title: "Website Empresa",
-      description: "Desenvolvimento do site institucional",
-      progress: 70,
-    },
-    {
-      id: 2,
-      title: "App Mobile",
-      description: "Aplicação móvel para clientes",
-      progress: 40,
-    },
-    {
-      id: 3,
-      title: "Sistema Interno",
-      description: "Gestão interna de tarefas",
-      progress: 90,
-    },
-  ];
+  const { projects } = useProjects();
 
   return (
     <div className="dashboard">

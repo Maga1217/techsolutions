@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useProjects } from "../../context/ProjectContext";
 import "../../styles/projectForm.css";
 
 const ProjectForm: React.FC = () => {
     const [projectName, setProjectName] = React.useState("");
     const [projectDescription, setProjectDescription] = React.useState("");
+    const { addProject } = useProjects();
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
@@ -13,10 +15,7 @@ const ProjectForm: React.FC = () => {
             return;
         }
 
-        console.log({
-            projectName,
-            projectDescription,
-        });
+        addProject({ title: projectName, description: projectDescription });
 
         setProjectName("");
         setProjectDescription("");
