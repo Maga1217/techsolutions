@@ -1,7 +1,6 @@
 import React from "react";
+import { TaskStatus } from "../../models/Task";
 import "../../styles/taskItem.css";
-
-export type TaskStatus = "pendente" | "em-progresso" | "concluida";
 
 type TaskItemProps = {
     title: string;

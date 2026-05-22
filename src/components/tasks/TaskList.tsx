@@ -1,5 +1,6 @@
 import React from "react";
-import TaskItem, { TaskStatus } from "./TaskItem";
+import TaskItem from "./TaskItem";
+import { TaskStatus } from "../../models/Task";
 import "../../styles/taskList.css";
 
 type Task = {
