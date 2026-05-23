@@ -1,10 +1,10 @@
 import React from "react";
-import CTask from "../../models/Task";
+import ITask from "../../models/Task";
 import { useProjects } from "../../context/ProjectContext";
 import "../../styles/taskItem.css";
 
 type TaskItemProps = {
-  task: CTask;
+  task: ITask;
   projectId: number;
 };
 

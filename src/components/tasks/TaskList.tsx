@@ -1,12 +1,12 @@
 import React from "react";
 import TaskItem from "./TaskItem";
 import TaskForm from "./TaskForm";
-import CTask from "../../models/Task";
+import ITask from "../../models/Task";
 import "../../styles/taskList.css";
 
 type TaskListProps = {
   projectId: number;
-  tasks: CTask[];
+  tasks: ITask[];
 };
 
 const TaskList: React.FC<TaskListProps> = ({ projectId, tasks }) => {

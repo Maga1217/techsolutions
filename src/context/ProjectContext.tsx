@@ -1,6 +1,12 @@
-import React, { createContext, useContext, useState } from "react";
-import CProject from "../models/Project";
-import CTask from "../models/Task";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import IProject from "../models/Project";
+import ITask from "../models/Task";
+import {
+  createProjectApi,
+  getProjectsApi,
+  deleteProjectApi,
+  updateProjectApi,
+} from "../services/productService";
 
 type CreateProjectData = {
   title: string;
@@ -8,11 +14,11 @@ type CreateProjectData = {
 };
 
 type ProjectContextType = {
-  projects: CProject[];
+  projects: IProject[];
   addProject: (project: CreateProjectData) => void;
   deleteProject: (id: number) => void;
-  updateProject: (project: CProject) => void;
-  addTaskToProject: (projectId: number, task: CTask) => void;
+  updateProject: (project: IProject) => void;
+  addTaskToProject: (projectId: number, task: ITask) => void;
   deleteTaskFromProject: (projectId: number, taskId: number) => void;
   completeTask: (projectId: number, taskId: number) => void;
 };
@@ -26,98 +32,113 @@ type ProjectProviderProps = {
 export const ProjectProvider: React.FC<ProjectProviderProps> = ({
   children,
 }) => {
-  const initialProject = new CProject(
-    1,
-    "Website Empresa",
-    "Desenvolvimento institucional",
-  );
+  const [projects, setProjects] = useState<IProject[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  initialProject.addTask(
-    new CTask(
-      1,
-      "Criar layout",
-      "Desenvolver estrutura inicial",
-      "25/05/2026",
-      "concluida",
-    ),
-  );
+  useEffect(() => {
+    const loadProjects = async () => {
+      const data = await getProjectsApi();
 
-  initialProject.addTask(
-    new CTask(
-      2,
-      "Criar dashboard",
-      "Adicionar cards",
-      "30/05/2026",
-      "em-progresso",
-    ),
-  );
+      setProjects(data);
+      setLoading(false);
+    };
 
-  const [projects, setProjects] = useState<CProject[]>([initialProject]);
+    loadProjects();
+  }, []);
 
-  const addProject = (project: CreateProjectData) => {
-    const newProject = new CProject(
-      projects.length + 1,
-      project.title,
-      project.description,
-    );
+  const addProject = async (project: CreateProjectData) => {
+    const newProject = await createProjectApi({
+      title: project.title,
+      description: project.description,
+      progress: 0,
+      tasks: [],
+    });
 
     setProjects((prevProjects) => [...prevProjects, newProject]);
   };
 
-  const deleteProject = (id: number) => {
+  const deleteProject = async (id: number) => {
+    await deleteProjectApi(id);
+
     setProjects((p) => p.filter((proj) => proj.id !== id));
   };
 
-  const updateProject = (project: CProject) => {
+  const updateProject = async (project: IProject) => {
+    const updated = await updateProjectApi(project);
+
     setProjects((p) =>
-      p.map((proj) => (proj.id === project.id ? project : proj)),
+      p.map((proj) => (proj.id === updated.id ? updated : proj)),
     );
   };
 
-  const addTaskToProject = (projectId: number, task: CTask) => {
+  const addTaskToProject = async (projectId: number, task: ITask) => {
+    const project = projects.find((p) => p.id === projectId);
+
+    if (!project) return;
+
+    const updatedProject: IProject = {
+      ...project,
+      tasks: [...project.tasks, task],
+    };
+
+    updatedProject.progress = Math.floor(
+      (updatedProject.tasks.filter((t) => t.status === "concluida").length /
+        updatedProject.tasks.length) *
+        100,
+    );
+
+    await updateProjectApi(updatedProject);
+
     setProjects((prev) =>
-      prev.map((project) => {
-        if (project.id !== projectId) return project;
-
-        const updated = new CProject(
-          project.id,
-          project.title,
-          project.description,
-          project.progress,
-        );
-
-        updated.tasks = [...project.tasks, task];
-        updated.updateProgress();
-
-        return updated;
-      }),
+      prev.map((p) => (p.id === projectId ? updatedProject : p)),
     );
   };
 
-  const deleteTaskFromProject = (projectId: number, taskId: number) => {
+  const deleteTaskFromProject = async (projectId: number, taskId: number) => {
+    const project = projects.find((p) => p.id === projectId);
+
+    if (!project) return;
+
+    const updatedProject: IProject = {
+      ...project,
+      tasks: project.tasks.filter((t) => t.id !== taskId),
+    };
+
+    updatedProject.progress = Math.floor(
+      (updatedProject.tasks.filter((t) => t.status === "concluida").length /
+        (updatedProject.tasks.length || 1)) *
+        100,
+    );
+
+    await updateProjectApi(updatedProject);
+
     setProjects((prev) =>
-      prev.map((project) => {
-        if (project.id === projectId) {
-          project.deleteTask(taskId);
-        }
-        return project;
-      }),
+      prev.map((p) => (p.id === projectId ? updatedProject : p)),
     );
   };
 
-  const completeTask = (projectId: number, taskId: number) => {
-    setProjects((prev) =>
-      prev.map((project) => {
-        if (project.id === projectId) {
-          const task = project.tasks.find((t) => t.id === taskId);
+  const completeTask = async (projectId: number, taskId: number) => {
+    const project = projects.find((p) => p.id === projectId);
 
-          if (task) {
-            task.status = "concluida";
-            project.updateProgress();
-          }
-        }
-        return project;
-      }),
+    if (!project) return;
+
+    const updatedProject: IProject = {
+      ...project,
+      tasks: project.tasks.map((t) =>
+        t.id === taskId ? { ...t, status: "concluida" } : t,
+      ),
+    };
+
+    updatedProject.progress = Math.floor(
+      (updatedProject.tasks.filter((t) => t.status === "concluida").length /
+        (updatedProject.tasks.length || 1)) *
+        100,
+    );
+
+    await updateProjectApi(updatedProject);
+
+    setProjects((prev) =>
+      prev.map((p) => (p.id === projectId ? updatedProject : p)),
     );
   };
 

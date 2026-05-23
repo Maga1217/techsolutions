@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useProjects } from "../../context/ProjectContext";
-import CTask from "../../models/Task";
+import ITask, { TaskStatus } from "../../models/Task";
 
 import "../../styles/taskForm.css";
 
@@ -19,8 +19,6 @@ const TaskForm: React.FC<Props> = ({ projectId }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    console.log(dueDate, title);
 
     if (dueDate === "" || title === "") {
       if (dueDate === "" && title === "") {
@@ -42,13 +40,13 @@ const TaskForm: React.FC<Props> = ({ projectId }) => {
       return;
     }
 
-    const newTask = new CTask(
-      currentProject ? currentProject.tasks.length + 1 : 1,
+    const newTask: ITask = {
+      id: currentProject ? currentProject.tasks.length + 1 : 1,
       title,
       description,
       dueDate,
-      "pendente",
-    );
+      status: "pendente",
+    };
 
     addTaskToProject(projectId, newTask);
 
