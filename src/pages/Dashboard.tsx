@@ -1,7 +1,6 @@
 import React from "react";
 import ProjectCard from "../components/projects/ProjectCard";
 import ProjectForm from "../components/projects/ProjectForm";
-import TaskList from "../components/tasks/TaskList";
 import { useProjects } from "../context/ProjectContext";
 import "../styles/dashboard.css";
 
@@ -22,6 +21,7 @@ const Dashboard: React.FC = () => {
         {projects.map((project) => (
           <ProjectCard
             key={project.id}
+            id={project.id}
             title={project.title}
             description={project.description}
             progress={project.progress}
@@ -29,8 +29,6 @@ const Dashboard: React.FC = () => {
           />
         ))}
       </div>
-
-      <TaskList />
     </div>
   );
 };

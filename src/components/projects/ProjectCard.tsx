@@ -1,8 +1,10 @@
 import React from "react";
 import CTask from "../../models/Task";
+import TaskList from "../tasks/TaskList";
 import "../../styles/projectCard.css";
 
 type ProjectCardProps = {
+  id: number;
   title: string;
   description: string;
   progress: number;
@@ -10,6 +12,7 @@ type ProjectCardProps = {
 };
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
+  id,
   title,
   description,
   progress,
@@ -31,17 +34,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       </div>
 
       <div className="project-tasks">
-        <h4>Tarefas</h4>
-
-        {tasks.length === 0 ? (
-          <p>Sem tarefas</p>
-        ) : (
-          tasks.map((task) => (
-            <div key={task.id} className={`task-preview ${task.status}`}>
-              <span>{task.title}</span>
-            </div>
-          ))
-        )}
+        <TaskList projectId={id} tasks={tasks} />
       </div>
     </div>
   );

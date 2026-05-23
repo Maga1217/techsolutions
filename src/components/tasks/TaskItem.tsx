@@ -1,35 +1,47 @@
 import React from "react";
-import { TaskStatus } from "../../models/Task";
+import CTask from "../../models/Task";
+import { useProjects } from "../../context/ProjectContext";
 import "../../styles/taskItem.css";
 
 type TaskItemProps = {
-    title: string;
-    description: string;
-    dueDate: string;
-    status: TaskStatus;
+  task: CTask;
+  projectId: number;
 };
 
-const TaskItem: React.FC<TaskItemProps> = ({
-    title,
-    description,
-    dueDate,
-    status,
-}) => {
-    return(
-        <div className={`task-item ${status.toLowerCase()}`}>
-            <h3 className="task-title">{title}</h3>
+const TaskItem: React.FC<TaskItemProps> = ({ task, projectId }) => {
+  const { deleteTaskFromProject, completeTask } = useProjects();
 
-            <p className="task-description">{description}</p>
+  return (
+    <div className={`task-item ${task.status}`}>
+      <h3 className="task-title">{task.title}</h3>
 
-            <small className="task-due-date">Prazo: {dueDate}</small>
+      <p className="task-description">{task.description}</p>
 
-            <span className="task-status">
-                {status === "pendente" && "Pendente"}
-                {status === "em-progresso" && "Em progresso"}
-                {status === "concluida" && "Concluída"}
-            </span>
-        </div>
-    );
-}
+      <small className="task-due-date">Prazo: {task.dueDate}</small>
+
+      <span className="task-status">
+        {task.status === "pendente" && "Pendente"}
+        {task.status === "em-progresso" && "Em progresso"}
+        {task.status === "concluida" && "Concluída"}
+      </span>
+
+      <div className="task-actions">
+        <button
+          className="task-action complete"
+          onClick={() => completeTask(projectId, task.id)}
+        >
+          Concluir
+        </button>
+
+        <button
+          className="task-action delete"
+          onClick={() => deleteTaskFromProject(projectId, task.id)}
+        >
+          Remover
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default TaskItem;

@@ -77,10 +77,19 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
   const addTaskToProject = (projectId: number, task: CTask) => {
     setProjects((prev) =>
       prev.map((project) => {
-        if (project.id === projectId) {
-          project.addTask(task);
-        }
-        return project;
+        if (project.id !== projectId) return project;
+
+        const updated = new CProject(
+          project.id,
+          project.title,
+          project.description,
+          project.progress,
+        );
+
+        updated.tasks = [...project.tasks, task];
+        updated.updateProgress();
+
+        return updated;
       }),
     );
   };

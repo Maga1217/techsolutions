@@ -21,7 +21,7 @@ class CProject {
   }
 
   addTask(task: CTask): void {
-    this.tasks.push(task);
+    this.tasks = [...this.tasks, task];
 
     this.updateProgress();
   }
@@ -40,7 +40,9 @@ class CProject {
 
     const completedTasks = this.tasks.filter((t) => t.status === "concluida");
 
-    this.progress = (completedTasks.length / this.tasks.length) * 100;
+    this.progress = Math.floor(
+      (completedTasks.length / this.tasks.length) * 100,
+    );
   }
 }
 

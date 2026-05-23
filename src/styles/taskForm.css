@@ -1,0 +1,82 @@
+.task-form {
+  margin-top: 16px;
+  padding-top: 16px;
+
+  border-top: 1px solid var(--bg-lightwhite);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* título */
+.task-form h3 {
+  margin: 0;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: var(--text-black);
+}
+
+/* grupos */
+.task-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* inputs */
+.task-form input,
+.task-form textarea {
+  padding: 10px 12px;
+
+  border: 1px solid #d1d5db;
+  border-radius: var(--radius);
+
+  background: #f9fafb;
+
+  font-size: 13px;
+  font-family: inherit;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+/* textarea */
+.task-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* placeholder */
+.task-form input::placeholder,
+.task-form textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* focus */
+.task-form input:focus,
+.task-form textarea:focus {
+  outline: none;
+
+  background: var(--bg-white);
+
+  border-color: var(--primary);
+
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08);
+}
+
+/* botão */
+.task-form button {
+  align-self: flex-start;
+}
+
+/* linha dupla opcional */
+.task-form-row {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 10px;
+}

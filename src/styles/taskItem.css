@@ -9,16 +9,18 @@
   flex-direction: column;
   gap: 10px;
 
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 
   position: relative;
 }
 
 /* hover moderno */
-.task-item:hover {
+/* .task-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
+} */
 
 .task-title {
   margin: 0;
@@ -83,4 +85,66 @@
 .task-item.concluida .task-status {
   background: #d1fae5;
   color: #065f46;
+}
+/* ========================= */
+/* TASK ACTIONS */
+/* ========================= */
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.task-action {
+  padding: 6px 10px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+}
+
+/* ===== CONCLUIR ===== */
+
+.task-action.complete {
+  background: var(--primary);
+  color: var(--text-white);
+}
+
+.task-action.complete:hover {
+  background: var(--primary-hover);
+}
+
+/* ===== REMOVER ===== */
+
+.task-action.delete {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.task-action.delete:hover {
+  background: #fecaca;
+}
+
+/* ===== ACTIVE FEEDBACK ===== */
+
+.task-actions button:active {
+  transform: scale(0.96);
+}
+
+/* ===== FOCUS ACCESSÍVEL ===== */
+
+.task-action:active {
+  transform: scale(0.96);
+}
+
+.task-action:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }

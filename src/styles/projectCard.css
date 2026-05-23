@@ -2,7 +2,6 @@
   background: var(--bg-white);
   padding: 16px;
   border-radius: 12px;
-  cursor: pointer;
 
   border: 1px solid var(--bg-lightwhite);
 
@@ -16,10 +15,10 @@
 }
 
 /* hover mais “app moderna” */
-.project-card:hover {
+/* .project-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
+} */
 
 .project-card h3 {
   margin: 0;
@@ -79,8 +78,6 @@
 /* ========================= */
 
 .project-tasks {
-  margin-top: 8px;
-
   display: flex;
   flex-direction: column;
   gap: 8px;
