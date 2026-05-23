@@ -1,16 +1,19 @@
 import React from "react";
+import CTask from "../../models/Task";
 import "../../styles/projectCard.css";
 
 type ProjectCardProps = {
   title: string;
   description: string;
   progress: number;
+  tasks: CTask[];
 };
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
   description,
   progress,
+  tasks,
 }) => {
   return (
     <div className="project-card">
@@ -21,7 +24,25 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="progress-bar" style={{ width: `${progress}%` }} />
       </div>
 
-      <small>{progress}% concluído</small>
+      <div className="project-meta">
+        <small>{progress}% concluído</small>
+
+        <small>{tasks.length} tarefas</small>
+      </div>
+
+      <div className="project-tasks">
+        <h4>Tarefas</h4>
+
+        {tasks.length === 0 ? (
+          <p>Sem tarefas</p>
+        ) : (
+          tasks.map((task) => (
+            <div key={task.id} className={`task-preview ${task.status}`}>
+              <span>{task.title}</span>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };

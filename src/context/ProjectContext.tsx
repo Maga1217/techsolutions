@@ -1,64 +1,138 @@
-import React,{ createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
+import CProject from "../models/Project";
+import CTask from "../models/Task";
 
-type Project = {
-    id: number;
-    title: string;
-    description: string;
-    progress: number;
+type CreateProjectData = {
+  title: string;
+  description: string;
 };
 
 type ProjectContextType = {
-    projects: Project[];
-    addProject: (project: Omit<Project, "id" | "progress">) => void;
-    deleteProject: (id: number) => void;
-    updateProject: (project: Project) => void;
+  projects: CProject[];
+  addProject: (project: CreateProjectData) => void;
+  deleteProject: (id: number) => void;
+  updateProject: (project: CProject) => void;
+  addTaskToProject: (projectId: number, task: CTask) => void;
+  deleteTaskFromProject: (projectId: number, taskId: number) => void;
+  completeTask: (projectId: number, taskId: number) => void;
 };
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 
 type ProjectProviderProps = {
-    children: React.ReactNode;
+  children: React.ReactNode;
 };
 
-export const ProjectProvider: React.FC<ProjectProviderProps> = ({ children }) => {
-    const [projects, setProjects] = useState<Project[]>([
-        {
-            id: 1,
-            title: "Website Empresa",
-            description: "Desenvolvimento institucional",
-            progress: 70,
-        }
-    ]);
+export const ProjectProvider: React.FC<ProjectProviderProps> = ({
+  children,
+}) => {
+  const initialProject = new CProject(
+    1,
+    "Website Empresa",
+    "Desenvolvimento institucional",
+  );
 
-    const addProject = (project: Omit<Project, "id" | "progress">) => {
-        const newProject: Project = {
-            id: projects.length + 1,
-            progress: 0,
-            ...project,
-        };
+  initialProject.addTask(
+    new CTask(
+      1,
+      "Criar layout",
+      "Desenvolver estrutura inicial",
+      "25/05/2026",
+      "concluida",
+    ),
+  );
 
-        setProjects((prevProjects) => [...prevProjects, newProject]);
-    }
+  initialProject.addTask(
+    new CTask(
+      2,
+      "Criar dashboard",
+      "Adicionar cards",
+      "30/05/2026",
+      "em-progresso",
+    ),
+  );
 
-    const deleteProject = (id: number) => {
-        setProjects((p) => p.filter((proj) => proj.id !== id));
-    }
+  const [projects, setProjects] = useState<CProject[]>([initialProject]);
 
-    const updateProject = (project: Project) => {
-        setProjects((p) => p.map((proj) => proj.id === project.id ? project : proj));
-    }
-
-    return(
-        <ProjectContext.Provider value={{ projects, addProject, deleteProject, updateProject }} >
-            {children}
-        </ProjectContext.Provider>
+  const addProject = (project: CreateProjectData) => {
+    const newProject = new CProject(
+      projects.length + 1,
+      project.title,
+      project.description,
     );
+
+    setProjects((prevProjects) => [...prevProjects, newProject]);
+  };
+
+  const deleteProject = (id: number) => {
+    setProjects((p) => p.filter((proj) => proj.id !== id));
+  };
+
+  const updateProject = (project: CProject) => {
+    setProjects((p) =>
+      p.map((proj) => (proj.id === project.id ? project : proj)),
+    );
+  };
+
+  const addTaskToProject = (projectId: number, task: CTask) => {
+    setProjects((prev) =>
+      prev.map((project) => {
+        if (project.id === projectId) {
+          project.addTask(task);
+        }
+        return project;
+      }),
+    );
+  };
+
+  const deleteTaskFromProject = (projectId: number, taskId: number) => {
+    setProjects((prev) =>
+      prev.map((project) => {
+        if (project.id === projectId) {
+          project.deleteTask(taskId);
+        }
+        return project;
+      }),
+    );
+  };
+
+  const completeTask = (projectId: number, taskId: number) => {
+    setProjects((prev) =>
+      prev.map((project) => {
+        if (project.id === projectId) {
+          const task = project.tasks.find((t) => t.id === taskId);
+
+          if (task) {
+            task.status = "concluida";
+            project.updateProgress();
+          }
+        }
+        return project;
+      }),
+    );
+  };
+
+  return (
+    <ProjectContext.Provider
+      value={{
+        projects,
+        addProject,
+        deleteProject,
+        updateProject,
+        addTaskToProject,
+        deleteTaskFromProject,
+        completeTask,
+      }}
+    >
+      {children}
+    </ProjectContext.Provider>
+  );
 };
 
 export const useProjects = () => {
-    const context = useContext(ProjectContext);
-    if (!context) {
-        throw new Error("useProjects must be used within a ProjectProvider");
-    }
-    return context;
-}
+  const context = useContext(ProjectContext);
+  if (!context) {
+    throw new Error("useProjects must be used within a ProjectProvider");
+  }
+  return context;
+};

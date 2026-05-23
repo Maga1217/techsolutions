@@ -73,3 +73,89 @@
   background: var(--bg-lightwhite);
   color: var(--text-black);
 }
+
+/* ========================= */
+/* TASKS PREVIEW */
+/* ========================= */
+
+.project-tasks {
+  margin-top: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-tasks h4 {
+  margin: 0;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #374151;
+}
+
+/* empty state */
+.project-tasks p {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* preview da task */
+.task-preview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 10px;
+
+  border-radius: 8px;
+
+  background: #f9fafb;
+
+  border: 1px solid #e5e7eb;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* hover */
+.task-preview:hover {
+  background: #f3f4f6;
+}
+
+/* texto */
+.task-preview span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ========================= */
+/* STATUS COLORS */
+/* ========================= */
+
+.task-preview.pendente {
+  border-left: 4px solid #ef4444;
+}
+
+.task-preview.em-progresso {
+  border-left: 4px solid #f59e0b;
+}
+
+.task-preview.concluida {
+  border-left: 4px solid #10b981;
+}
