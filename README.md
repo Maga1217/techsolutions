@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+# TechSolutions — Gestão de Projetos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicação web de gestão de projetos e tarefas desenvolvida com React e TypeScript.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Pré-requisitos
 
-### `npm start`
+Antes de correr o projeto, certifique-se que tem instalado:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [Node.js](https://nodejs.org/) (versão 16 ou superior)
+- npm (incluído com o Node.js)
+  Para verificar se tem o Node.js instalado, abra o terminal e escreva:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+node --version
+npm --version
+```
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Instalação
 
-### `npm run build`
+**1. Clone ou extraia o projeto para uma pasta no seu computador.**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**2. Abra o terminal dentro da pasta do projeto e instale as dependências:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Como correr o projeto
 
-**Note: this is a one-way operation. Once you `eject`, you canâ€™t go back!**
+O projeto precisa de **dois terminais abertos em simultâneo**.
 
-If you arenâ€™t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Terminal 1 — Iniciar a API (base de dados simulada):**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point youâ€™re on your own.
+```bash
+npm run server
+```
 
-You donâ€™t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldnâ€™t feel obligated to use this feature. However we understand that this tool wouldnâ€™t be useful if you couldnâ€™t customize it when you are ready for it.
+Deverá ver a mensagem:
 
-## Learn More
+```
+Resources
+http://localhost:3001/projects
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Terminal 2 — Iniciar a aplicação:**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm start
+```
+
+A aplicação abre automaticamente no browser em `http://localhost:3000`.
+
+> ?? Os dois comandos têm de estar a correr ao mesmo tempo para a aplicação funcionar corretamente.
+
+---
+
+## Como correr os testes
+
+Com o terminal dentro da pasta do projeto:
+
+```bash
+npm test -- --watchAll=false
+```
