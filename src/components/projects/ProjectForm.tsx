@@ -37,7 +37,7 @@ const ProjectForm: React.FC = () => {
         <div className="error-box">
           {errors.map((err, index) => (
             <p key={index} className="error-message">
-              ?? {err}
+              ⚠️ {err}
             </p>
           ))}
         </div>

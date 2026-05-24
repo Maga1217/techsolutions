@@ -1,21 +1,32 @@
-.project-form-container .project-form {
-  background: var(--bg-white);
-  border: 1px solid var(--bg-lightwhite);
+/* ========================= */
+/* PROJECT FORM */
+/* ========================= */
 
+.project-form {
+  background: var(--bg-white);
+
+  border: 1px solid var(--bg-lightwhite);
   border-radius: 12px;
+
   padding: 24px;
 
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
   margin-bottom: 24px;
+
+  animation: fadeIn 0.2s ease;
 }
 
-/* header */
-.project-form-container .project-form h2 {
+/* ========================= */
+/* TITLES */
+/* ========================= */
+
+.project-form h2,
+.project-form h3 {
   margin: 0;
 
   font-size: 20px;
@@ -24,69 +35,149 @@
   color: var(--text-black);
 }
 
-/* grupo */
-.project-form-container .form-group {
+/* ========================= */
+/* FORM GROUP */
+/* ========================= */
+
+.form-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
 /* labels */
-.project-form-container .form-group label {
+.form-group label {
   font-size: 13px;
   font-weight: 600;
 
   color: #374151;
 }
 
-/* inputs */
-.project-form-container .form-group input,
-.project-form-container .form-group textarea {
+/* ========================= */
+/* INPUTS */
+/* ========================= */
+
+.form-group input,
+.form-group textarea {
   padding: 12px 14px;
 
   border: 1px solid #d1d5db;
   border-radius: var(--radius);
 
-  background: var(--bg-white);
+  background: #f9fafb;
 
   font-size: 14px;
   font-family: inherit;
 
   transition:
     border-color 0.15s ease,
-    box-shadow 0.15s ease;
+    box-shadow 0.15s ease,
+    background 0.15s ease;
 }
 
 /* textarea */
-.project-form-container .form-group textarea {
+.form-group textarea {
   min-height: 120px;
   resize: vertical;
 }
 
-/* placeholder */
-.project-form-container .form-group input::placeholder,
-.project-form-container .form-group textarea::placeholder {
+/* placeholders */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
   color: #9ca3af;
 }
 
 /* focus */
-.project-form-container .form-group input:focus,
-.project-form-container .form-group textarea:focus {
+.form-group input:focus,
+.form-group textarea:focus {
   outline: none;
+
+  background: var(--bg-white);
 
   border-color: var(--primary);
 
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08);
 }
 
-/* botão */
-.project-form-container .project-form button {
-  align-self: flex-start;
+/* ========================= */
+/* ACTIONS */
+/* ========================= */
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+
+  margin-top: 4px;
 }
 
-/* responsivo */
+/* ========================= */
+/* ERROR BOX */
+/* ========================= */
+
+.error-box {
+  background: #fef2f2;
+
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+
+  padding: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.error-message {
+  margin: 0;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  color: #b91c1c;
+}
+
+/* ========================= */
+/* EDIT MODE */
+/* ========================= */
+
+.project-form.editing {
+  border-color: var(--primary);
+
+  box-shadow:
+    0 0 0 4px rgba(59, 130, 246, 0.08),
+    0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
 @media (max-width: 768px) {
-  .project-form-container .project-form {
+  .project-form {
     padding: 18px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}
+
+/* ========================= */
+/* ANIMATION */
+/* ========================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -9,7 +9,7 @@ function App() {
     <div>
       <Header />
 
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", minHeight: "100svh" }}>
         <Sidebar />
 
         <main style={{ padding: 20, flex: 1 }}>
