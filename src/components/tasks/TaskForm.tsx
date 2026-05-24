@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useProjects } from "../../context/ProjectContext";
-import ITask, { TaskStatus } from "../../models/Task";
-
+import ITask, { Task } from "../../models/Task";
+import useFormErrors from "../../hooks/useForm";
 import "../../styles/taskForm.css";
 
 type Props = {
@@ -9,39 +9,29 @@ type Props = {
 };
 
 const TaskForm: React.FC<Props> = ({ projectId }) => {
-  const { projects, addTaskToProject } = useProjects();
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
-
-  const currentProject = projects.find((project) => project.id === projectId);
+  const { projects, addTaskToProject } = useProjects();
+  const { errors, setFormErrors, clearErrors } = useFormErrors();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (dueDate === "" || title === "") {
-      if (dueDate === "" && title === "") {
-        alert("Insira título e data de prazo para a tarefa");
-      } else if (title === "") {
-        alert("Insira título para a tarefa");
-      } else {
-        alert("Insira data de prazo para a tarefa");
-      }
+    // valida com o método estático da classe Task
+    const validationErrors = Task.validate({ title, dueDate });
+
+    if (validationErrors.length > 0) {
+      setFormErrors(validationErrors);
       return;
     }
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    clearErrors();
 
-    const selectedDate = new Date(dueDate);
-    if (selectedDate < today) {
-      alert("A data não pode ser inferior ao dia atual");
-      return;
-    }
+    const project = projects.find((p) => p.id === projectId);
 
     const newTask: ITask = {
-      id: currentProject ? currentProject.tasks.length + 1 : 1,
+      id: project ? project.tasks.length + 1 : 1,
       title,
       description,
       dueDate,
@@ -49,7 +39,6 @@ const TaskForm: React.FC<Props> = ({ projectId }) => {
     };
 
     addTaskToProject(projectId, newTask);
-
     setTitle("");
     setDescription("");
     setDueDate("");
@@ -58,6 +47,16 @@ const TaskForm: React.FC<Props> = ({ projectId }) => {
   return (
     <form onSubmit={handleSubmit} className="task-form">
       <h3>Nova Tarefa</h3>
+
+      {errors.length > 0 && (
+        <div className="error-box">
+          {errors.map((err, index) => (
+            <p key={index} className="error-message">
+              ⚠️ {err}
+            </p>
+          ))}
+        </div>
+      )}
 
       <div className="task-form-group">
         <input

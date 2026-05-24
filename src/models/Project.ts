@@ -41,13 +41,13 @@ export class Project implements IProject {
     const errors: string[] = [];
 
     if (!data.title || data.title.trim() === "") {
-      errors.push("O nome do projeto é obrigatório.");
+      errors.push("O nome do projeto Ã© obrigatÃ³rio.");
     }
     if (data.title && data.title.trim().length < 3) {
       errors.push("O nome deve ter pelo menos 3 caracteres.");
     }
     if (!data.description || data.description.trim() === "") {
-      errors.push("A descrição é obrigatória.");
+      errors.push("A descriÃ§Ã£o Ã© obrigatÃ³ria.");
     }
 
     return errors;

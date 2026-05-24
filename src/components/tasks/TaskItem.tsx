@@ -1,6 +1,7 @@
-import React from "react";
-import ITask from "../../models/Task";
+import React, { useState } from "react";
+import ITask, { Task } from "../../models/Task";
 import { useProjects } from "../../context/ProjectContext";
+import TaskEditForm from "./TaskEditForm";
 import "../../styles/taskItem.css";
 
 type TaskItemProps = {
@@ -10,6 +11,19 @@ type TaskItemProps = {
 
 const TaskItem: React.FC<TaskItemProps> = ({ task, projectId }) => {
   const { deleteTaskFromProject, completeTask } = useProjects();
+  const [isEditing, setIsEditing] = useState(false);
+
+  const taskObj = new Task(task);
+
+  if (isEditing) {
+    return (
+      <TaskEditForm
+        task={task}
+        projectId={projectId}
+        onCancel={() => setIsEditing(false)}
+      />
+    );
+  }
 
   return (
     <div className={`task-item ${task.status}`}>
@@ -31,6 +45,10 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, projectId }) => {
           onClick={() => completeTask(projectId, task.id)}
         >
           Concluir
+        </button>
+
+        <button className="task-action edit" onClick={() => setIsEditing(true)}>
+          Editar
         </button>
 
         <button

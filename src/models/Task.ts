@@ -38,7 +38,7 @@ export class Task implements ITask {
     const labels: Record<TaskStatus, string> = {
       pendente: "Pendente",
       "em-progresso": "Em Progresso",
-      concluida: "Concluída",
+      concluida: "ConcluÃ­da",
     };
     return labels[this.status];
   }
@@ -47,20 +47,20 @@ export class Task implements ITask {
     const errors: string[] = [];
 
     if (!data.title || data.title.trim() === "") {
-      errors.push("O título é obrigatório.");
+      errors.push("O tÃ­tulo Ã© obrigatÃ³rio.");
     }
     if (data.title && data.title.trim().length < 3) {
-      errors.push("O título deve ter pelo menos 3 caracteres.");
+      errors.push("O tÃ­tulo deve ter pelo menos 3 caracteres.");
     }
     if (!data.dueDate) {
-      errors.push("A data de conclusão é obrigatória.");
+      errors.push("A data de conclusÃ£o Ã© obrigatÃ³ria.");
     }
     if (data.dueDate) {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const due = new Date(data.dueDate);
       if (due < today) {
-        errors.push("A data não pode ser no passado.");
+        errors.push("A data nÃ£o pode ser no passado.");
       }
     }
 

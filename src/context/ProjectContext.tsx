@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import IProject from "../models/Project";
+import IProject, { Project } from "../models/Project";
 import ITask from "../models/Task";
 import {
   createProjectApi,
@@ -64,12 +64,14 @@ export const ProjectProvider: React.FC<ProjectProviderProps> = ({
   const addProject = async (project: CreateProjectData): Promise<void> => {
     try {
       setError(null);
-      const newProject = await createProjectApi({
-        title: project.title,
-        description: project.description,
+      const apiProject = await createProjectApi({
+        id: 0,
+        ...project,
         progress: 0,
         tasks: [],
       });
+
+      const newProject = new Project(apiProject);
       setProjects((prev) => [...prev, newProject]);
     } catch (err) {
       handleError(err, "Erro ao criar projeto");

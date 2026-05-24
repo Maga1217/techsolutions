@@ -28,7 +28,8 @@
 
 /* inputs */
 .task-form input,
-.task-form textarea {
+.task-form textarea,
+.task-form select {
   padding: 10px 12px;
 
   border: 1px solid #d1d5db;
@@ -53,7 +54,8 @@
 
 /* placeholder */
 .task-form input::placeholder,
-.task-form textarea::placeholder {
+.task-form textarea::placeholder,
+.task-form select::placeholder {
   color: #9ca3af;
 }
 
@@ -70,6 +72,11 @@
 }
 
 /* botão */
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
 .task-form button {
   align-self: flex-start;
 }

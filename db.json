@@ -4,7 +4,7 @@
       "id": "1",
       "title": "Website Empresa",
       "description": "Desenvolvimento institucional",
-      "progress": 100,
+      "progress": 50,
       "tasks": [
         {
           "id": 1,
@@ -18,7 +18,7 @@
           "title": "Criar dashboard",
           "description": "Cards e layout",
           "dueDate": "2026-05-30",
-          "status": "concluida"
+          "status": "em-progresso"
         }
       ]
     },
